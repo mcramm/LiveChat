@@ -2,8 +2,9 @@ var ws = null
 $(document).ready( function() {
     ws = new WebSocket("ws://localhost:8000");
     ws.onopen = function(evt) {
-        console.log('Connected');
-        ws.send( JSON.stringify( {command: 'new_member', username: "mike"} ) );
+        var user_data = JSON.parse($('#user-data').text());
+
+        ws.send( JSON.stringify( {command: 'new_member', username: user_data.username, gravatar_hash: user_data.gravatar_hash} ) );
         ws.send( JSON.stringify( {command: 'new_message', message: "Hello!"} ) );
     }
     ws.onmessage = function(args) {
@@ -54,7 +55,7 @@ function appendMessage( message ){
 
 function appendMember( member ){
     console.log('new memeber!', member);
-    var memberDiv = "<div id="+member.id+" class='player " + member.color + " " + member.status + "'>" + member.username + "</div>";
+    var memberDiv = "<div id="+member.id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />" + member.username + "</div>";
     $('#members').append(memberDiv);
 }
 

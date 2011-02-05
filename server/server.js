@@ -20,7 +20,7 @@ server.addListener("connection", function(conn){
                 server.broadcast( JSON.stringify({command: data.command, message: message}) );
             }
             if (data.command === 'new_member') {
-                var member = chat.addMember( conn, data.username );
+                var member = chat.addMember( conn, data.username, data.gravatar_hash);
 
                 server.broadcast( JSON.stringify({command: data.command, member: member}) );
             }

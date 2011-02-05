@@ -6,7 +6,7 @@ module UserRoutes
     post '/signin' do
         username = params['user']['username'] 
         password = params['user']['password']
-        password = Digest::MD5.hexdigest( password )
+        password = md5( password )
 
         user = User.by_username(:key => username).first
 
@@ -25,7 +25,8 @@ module UserRoutes
     end
 
     post '/signup' do
-       params['user']['password'] = Digest::MD5.hexdigest( params['user']['password'] )
+       params['user']['password'] = md5( params['user']['password'] )
+       params['user']['gravatar_hash'] = md5( params['user']['email'] )
        user = User.new( params['user'] )
 
        if user.save

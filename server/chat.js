@@ -22,13 +22,14 @@ Chat.prototype.addMessage = function(conn, message) {
     return message;
 }
 
-Chat.prototype.addMember = function(conn, username) {
+Chat.prototype.addMember = function(conn, username, gravatar_hash) {
     this.state.member_count += 1;
 
     var member = {
         id: conn.id,
         username: username, 
         status: 'connected',
+        gravatar_hash: gravatar_hash,
         color: this.colors.shift()
     };
     this.state.members[conn.id] = member;

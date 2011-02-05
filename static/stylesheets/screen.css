@@ -33,6 +33,8 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 
 .player, .message { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
 
+#user-data { display: none; }
+
 .gray { border-color: #888888; }
 
 .red { border-color: red; }
@@ -40,3 +42,5 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 .blue { border-color: blue; }
 
 .green { border-color: lime; }
+
+.member-img { margin-right: 5px; }

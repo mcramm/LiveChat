@@ -28,7 +28,6 @@ get '/' do
     haml :index
 end
 
-
 def verify_user
     redirect '/login' if session[:user].nil?
 end
@@ -49,3 +48,6 @@ def invalid_password
     redirect '/login'
 end
 
+def md5(string)
+    return Digest::MD5.hexdigest(string)
+end

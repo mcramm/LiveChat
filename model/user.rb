@@ -6,6 +6,7 @@ class User < CouchRest::ExtendedDocument
     property :username
     property :password
     property :email
+    property :gravatar_hash
 
     timestamps!
 
