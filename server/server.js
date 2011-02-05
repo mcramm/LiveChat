@@ -42,7 +42,9 @@ server.addListener("error", function(){
 server.addListener("disconnect", function(conn){
     console.log('disconnect');
     member = chat.getMember( conn.id );
-    server.broadcast( JSON.stringify( {command: 'remove_member', member_id: member.origin_id }));
+    if(member) {
+        server.broadcast( JSON.stringify( {command: 'remove_member', member_id: member.origin_id }));
+    }
 });
 
 // game cycle
