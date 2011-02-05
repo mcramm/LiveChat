@@ -2,11 +2,7 @@ var Chat = function() {
     //this.members = {};
     //this.messages = [];
     this.state = this.buildState();
-    this.colors = [
-        'red',
-        'blue',
-        'green'
-    ]
+    this.colors = ['gray', 'red', 'blue', 'orange', 'magenta', 'cyan', 'olive', 'brown', 'teal'];
 }
 
 Chat.prototype.buildState = function() {

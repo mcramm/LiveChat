@@ -29,19 +29,20 @@ $(document).ready( function() {
     $('#new-message').focus( function() {
         console.log('focused!');
 
+        $('#new-message').val('');
         $('#new-message').keypress( function(e) {
             if( e.keyCode == 13 ) {
+                var node = $('#new-message');
                 console.log('enter pressed!');
-                console.log( $('#new-message').val() );
+                console.log( node.val() );
 
-                postMessage( $('#new-message').val() );
-                $('#new-message').blur();
+                postMessage( node.val() );
             }
         });
     });
+
     $('#new-message').blur( function() {
         console.log('blured!');
-
         $('#new-message').unbind( 'keypress' );
     });
 });
