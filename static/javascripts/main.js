@@ -3,9 +3,7 @@ $(document).ready( function() {
     ws = new WebSocket("ws://localhost:8000");
     ws.onopen = function(evt) {
         var user_data = JSON.parse($('#user-data').text());
-
         ws.send( JSON.stringify( {command: 'new_member', username: user_data.username, gravatar_hash: user_data.gravatar_hash} ) );
-        ws.send( JSON.stringify( {command: 'new_message', message: "Hello!"} ) );
     }
     ws.onmessage = function(args) {
         console.log('got message!', args);
@@ -30,14 +28,12 @@ $(document).ready( function() {
     $('#new-message').focus( function() {
         console.log('focused!');
 
-        $('#new-message').val('');
         $('#new-message').keypress( function(e) {
             if( e.keyCode == 13 ) {
                 var node = $('#new-message');
-                console.log('enter pressed!');
-                console.log( node.val() );
 
                 postMessage( node.val() );
+                $('#new-message').val('');
             }
         });
     });
