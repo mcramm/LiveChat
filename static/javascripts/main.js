@@ -69,11 +69,15 @@ function init( state ){
     console.log('initilizing!!')
 
     $.each( state.members , function(id, member) {
-        console.log('    initing member', member);
-        appendMember( member );
+        if(member) {
+            console.log('    initing member', member);
+            appendMember( member );
+        }
     });
     $.each( state.messages , function(index, message) {
-        console.log('    initing message', message);
-        appendMessage( message );
+        if(message) {
+            console.log('    initing message', message);
+            appendMessage( message );
+        }
     });
 }

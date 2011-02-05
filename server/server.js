@@ -22,7 +22,10 @@ server.addListener("connection", function(conn){
             if (data.command === 'new_member') {
                 var member = chat.addMember( conn, data.username, data.gravatar_hash);
 
-                server.broadcast( JSON.stringify({command: data.command, member: member}) );
+                if( member.is_new ) {
+                    chat.oldifyMember( conn.id ); 
+                    server.broadcast( JSON.stringify({command: data.command, member: member}) );
+                }
             }
         } catch(e) {
             console.warn(e + 'dropping command for ' + conn.id + ' command: ' + msg);
