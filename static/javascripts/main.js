@@ -13,6 +13,9 @@ $(document).ready( function() {
             case 'remove_member':
                 disconnectMember( data.member_id );
                 break;
+            case 'reconnect_member':
+                reconnectMember( data.member_id );
+                break;
             case 'new_message':
                 appendMessage( data.message );
                 break;
@@ -51,7 +54,7 @@ function appendMessage( message ){
 
 function appendMember( member ){
     console.log('new memeber!', member);
-    var memberDiv = "<div id="+member.id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />" + member.username + "</div>";
+    var memberDiv = "<div id="+member.origin_id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />" + member.username + "</div>";
     $('#members').append(memberDiv);
 }
 
@@ -63,6 +66,12 @@ function postMessage( message ){
 function disconnectMember( id ) {
     $("#" + id).removeClass( 'connected' );
     $("#" + id).addClass( 'disconnected' );
+}
+
+function reconnectMember( id ) {
+    console.log('reconnecting!!', id);
+    $("#" + id).removeClass( 'disconnected' );
+    $("#" + id).addClass( 'connected' );
 }
 
 function init( state ){

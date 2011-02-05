@@ -28,6 +28,7 @@ Chat.prototype.addMember = function(conn, username, gravatar_hash) {
         this.state.member_count += 1;
 
         member = {
+            origin_id: conn.id,
             id: conn.id,
             username: username, 
             status: 'connected',
@@ -38,12 +39,13 @@ Chat.prototype.addMember = function(conn, username, gravatar_hash) {
         this.state.members[conn.id] = member;
     } else {
         var old_id = member.id;
+        var new_id = conn.id;
 
         member.status = 'connected';
-        member.id = conn.id;
+        member.id = new_id;
 
         this.state.members[old_id] = null;
-        this.state.members[conn.id] = member;
+        this.state.members[new_id] = member;
     }
 
 
@@ -75,6 +77,10 @@ Chat.prototype.checkForMember = function(username) {
 
 Chat.prototype.oldifyMember = function( id ) {
     this.state.members[id].is_new = false;
+}
+
+Chat.prototype.getMember = function( id ){
+    return this.state.members[id];
 }
 
 exports.Chat = Chat;

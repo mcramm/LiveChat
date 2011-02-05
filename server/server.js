@@ -25,6 +25,8 @@ server.addListener("connection", function(conn){
                 if( member.is_new ) {
                     chat.oldifyMember( conn.id ); 
                     server.broadcast( JSON.stringify({command: data.command, member: member}) );
+                } else {
+                    server.broadcast( JSON.stringify({command: 'reconnect_member', member_id: member.origin_id}) );
                 }
             }
         } catch(e) {
@@ -39,7 +41,8 @@ server.addListener("error", function(){
 
 server.addListener("disconnect", function(conn){
     console.log('disconnect');
-    server.broadcast( JSON.stringify( {command: 'remove_member', member_id: conn.id }));
+    member = chat.getMember( conn.id );
+    server.broadcast( JSON.stringify( {command: 'remove_member', member_id: member.origin_id }));
 });
 
 // game cycle
