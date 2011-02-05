@@ -1,16 +1,12 @@
 require 'compass'
 require 'haml'
-#require 'couchrest'
-#require 'couchrest_extended_document'
-#require 'ostruct'
-#require 'cgi'
-#require 'lib/project'
-#require 'lib/issue'
-#require 'lib/user'
+require 'couchrest'
+require 'couchrest_extended_document'
+require 'ostruct'
+require 'cgi'
+require 'lib/user'
 
-#ENV['RACK_ENV'] ||= 'production'
-#ENV['DB_NAME'] = 'bug-journal-' << ENV['RACK_ENV']
+ENV['RACK_ENV'] ||= 'production'
+ENV['DB_NAME'] = 'node-chat-' << ENV['RACK_ENV']
 
-#require 'model/project'
-#require 'model/user'
-#require 'model/comment'
+require 'model/user'
