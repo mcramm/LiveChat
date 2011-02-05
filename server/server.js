@@ -15,11 +15,16 @@ server.addListener("connection", function(conn){
             var data = JSON.parse(msg);
             if (data.command === 'new_message') {
                 console.log( 'new message!', msg);
-                server.broadcast( msg );
+                message = {
+                    command: data.command, 
+                    message: data.message, 
+                    color: chat.getMemberColor( conn.id )
+                }
+                server.broadcast( JSON.stringify(message) );
             }
             if (data.command === 'new_member') {
-                chat.addMember( conn, data.username );
-                server.broadcast( msg );
+                var member = chat.addMember( conn, data.username );
+                server.broadcast( JSON.stringify(member) );
             }
         } catch(e) {
             console.warn(e + 'dropping command for ' + conn.id + ' command: ' + msg);
@@ -28,12 +33,12 @@ server.addListener("connection", function(conn){
 });
 
 server.addListener("error", function(){
-  console.log(Array.prototype.join.call(arguments, ", "));
+    console.log(Array.prototype.join.call(arguments, ", "));
 });
 
 server.addListener("disconnect", function(conn){
-  console.log('disconnect');
-  //game.removePlayer(conn);
+    console.log('disconnect');
+    server.broadcast( JSON.stringify( {command: 'remove_member', member_id: conn.id }));
 });
 
 // game cycle

@@ -1,6 +1,11 @@
 var Chat = function() {
-    this.responses = {};
+    this.members = {};
     this.state = this.buildState();
+    this.colors = [
+        'red',
+        'blue',
+        'green'
+    ]
 }
 
 Chat.prototype.buildState = function() {
@@ -11,16 +16,19 @@ Chat.prototype.buildState = function() {
 Chat.prototype.addMember = function(conn, username) {
     this.state.member_count += 1;
 
-    var member = {username: username, status: 'connected'};
+    var member = {
+        id: conn.id,
+        username: username, 
+        status: 'connected',
+        color: this.colors.shift()
+    };
+    this.members[conn.id] = member;
 
-    //this.state.members[conn.id] = member;
+    return member;
 }
 
-Chat.prototype.removeMember = function(conn) {
-    var member = this.state.members[conn.id];
-    if( member ) {
-        this.state.players[conn.id].status = 'disconnected';
-    }
+Chat.prototype.getMemberColor = function(id) {
+    return this.members[id].color;
 }
 
 exports.Chat = Chat;

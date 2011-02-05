@@ -10,12 +10,16 @@ $(document).ready( function() {
         console.log('got message!', args);
         var data = JSON.parse(args.data);
 
-        if( data.message ){
+        if( data.command === 'remove_member' ) {
+            disconnectMember( data.member_id );
+        }
+
+        if (data.command === 'new_message' ) {
             appendMessage( data );
         }
 
         if( data.username ) {
-            appendMember( data.username );
+            appendMember( data );
         }
     }
 
@@ -40,11 +44,14 @@ $(document).ready( function() {
 });
 
 function appendMessage( data ){
-    $('#messages').append("<div class='message'>" + data.message + "</div>");
+    console.log('new message!!', data);
+    $('#messages').append("<div class='message "+ data.color +"'>" + data.message + "</div>");
 }
 
-function appendMember( username ){
-    $('#members').append("<div class='player " + username + "'>" + username + "</div>");
+function appendMember( member ){
+    console.log('new memeber!', member);
+    var memberDiv = "<div id="+member.id+" class='player " + member.color + " " + member.status + "'>" + member.username + "</div>";
+    $('#members').append(memberDiv);
 }
 
 function postMessage( message ){
@@ -52,3 +59,7 @@ function postMessage( message ){
     ws.send( JSON.stringify( {command: 'new_message', message: message} ) );
 }
 
+function disconnectMember( id ) {
+    $("#" + id).removeClass( 'connected' );
+    $("#" + id).addClass( 'disconnected' );
+}
