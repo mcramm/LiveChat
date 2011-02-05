@@ -15,11 +15,16 @@ $(document).ready( function() {
         }
 
         if (data.command === 'new_message' ) {
-            appendMessage( data );
+            appendMessage( data.message );
         }
 
-        if( data.username ) {
-            appendMember( data );
+        if (data.command === 'new_member' ){
+            appendMember( data.member );
+        }
+
+        if (data.command === 'init' ){
+            init( data.state );
+
         }
     }
 
@@ -43,9 +48,9 @@ $(document).ready( function() {
     });
 });
 
-function appendMessage( data ){
-    console.log('new message!!', data);
-    $('#messages').append("<div class='message "+ data.color +"'>" + data.message + "</div>");
+function appendMessage( message ){
+    console.log('new message!!', message);
+    $('#messages').append("<div class='message "+ message.color +"'>" + message.message + "</div>");
 }
 
 function appendMember( member ){
@@ -62,4 +67,17 @@ function postMessage( message ){
 function disconnectMember( id ) {
     $("#" + id).removeClass( 'connected' );
     $("#" + id).addClass( 'disconnected' );
+}
+
+function init( state ){
+    console.log('initilizing!!')
+
+    $.each( state.members , function(id, member) {
+        console.log('    initing member', member);
+        appendMember( member );
+    });
+    $.each( state.messages , function(index, message) {
+        console.log('    initing message', message);
+        appendMessage( message );
+    });
 }

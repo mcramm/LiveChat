@@ -6,25 +6,22 @@ var chat = new Chat();
 
 var server = ws.createServer({debug: false});
 
-
 // Handle WebSocket Requests
 server.addListener("connection", function(conn){
+    conn.send( JSON.stringify({command: 'init', state: chat.getState()}));
 
     conn.addListener("message", function(msg){
         try{
             var data = JSON.parse(msg);
             if (data.command === 'new_message') {
-                console.log( 'new message!', msg);
-                message = {
-                    command: data.command, 
-                    message: data.message, 
-                    color: chat.getMemberColor( conn.id )
-                }
-                server.broadcast( JSON.stringify(message) );
+                var message = chat.addMessage( conn, data.message );
+
+                server.broadcast( JSON.stringify({command: data.command, message: message}) );
             }
             if (data.command === 'new_member') {
                 var member = chat.addMember( conn, data.username );
-                server.broadcast( JSON.stringify(member) );
+
+                server.broadcast( JSON.stringify({command: data.command, member: member}) );
             }
         } catch(e) {
             console.warn(e + 'dropping command for ' + conn.id + ' command: ' + msg);
