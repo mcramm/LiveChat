@@ -25,7 +25,6 @@ end
 
 get '/' do
     verify_user
-    #@projects = Project.all
     haml :index
 end
 
