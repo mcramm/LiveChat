@@ -6,15 +6,20 @@
         <script src='js/lib/Backbone.js' type='text/javascript'></script>
 
         <script src='js/main.js' type='text/javascript'></script>
+
+        <link rel='stylesheet' href='css/style.css'></link>
     </head>
     <body >
-        <div id='messages'>
-        </div>
-        <div id='members'>
+        <div class='chat-area'>
+            <div id='messages' class='messages'>
+            </div>
+            <div id='members' class='members'>
+            </div>
+            <div class='clear'></div>
         </div>
 
         <div id='new-message-holder'>
-            <textarea id='new-message'></textarea>
+            <textarea id='new-message' rows=3 cols=60></textarea>
         </div>
     </body>
 </html>

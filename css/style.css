@@ -1,0 +1,36 @@
+.messages{
+    width: 500px;
+    float:left;
+}
+
+.members{
+    width:200px;
+    float:left;
+}
+
+.clear{
+    clear:both;
+}
+
+.chat-area{
+    display:block;
+}
+
+.player, .message{
+    border-left: 3px solid;
+    margin: 5px 0px;
+    padding-left: 3px;
+}
+
+.gray{
+    border-color: #888888;
+}
+.red{
+    border-color: #FF0000;
+}
+.blue{
+    border-color: #0000FF;
+}
+.green{
+    border-color: #00FF00;
+}
