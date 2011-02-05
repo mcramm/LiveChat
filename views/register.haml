@@ -2,8 +2,14 @@
     .session-message
         = session[:message]
 %form{:action => '/signup', :method => 'post', :name => 'user'}
-    %input{:name => 'user[username]', :type => 'textfield', :id => 'username'}
-    %input{:name => 'user[email]', :type => 'textfield', :id => 'email'}
-    %input{:name => 'user[password]', :type => 'password', :id => 'password'}
-    %input{:type => 'submit', :id => 'submit'}
-
+    .form-line
+        %label{:class =>'username'} Username
+        %input{:name => 'user[username]', :type => 'textfield', :id => 'username'}
+    .form-line
+        %label{:class =>'email'} Email
+        %input{:name => 'user[email]', :type => 'textfield', :id => 'email'}
+    .form-line
+        %label{:class =>'password'} Password
+        %input{:name => 'user[password]', :type => 'password', :id => 'password'}
+    .form-line
+        %input{:type => 'submit', :id => 'submit'}
