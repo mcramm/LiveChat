@@ -1,0 +1,58 @@
+@import "base.sass"
+
+body
+    font-size: 1.5em
+    font-family: Monaco, "Helvetica Neue", Helvetica
+    color: $font_color
+    background: $background_color
+    padding: 20px
+
+h1
+    font-size: 1.5em
+    text-align: center
+
+a
+    +link_stan
+
+a:visited
+    +link_stan
+
+a:hover
+    color: $link_hover
+    text-decoration: underline
+
+h2
+    text-align: center
+    font-size: 0.9em
+    padding-top: 20px
+
+.clear
+    clear: both
+
+.messages
+    font-size: 13px
+    width: 500px
+    float: left
+
+.members
+    font-size: 12px
+    width: 200px
+    float: left
+
+.player, .message
+    border-left: 3px solid
+    margin: 5px 0px
+    padding-left: 3px
+
+.gray
+    border-color: #888888
+
+.red
+    border-color: #FF0000
+
+.blue
+    border-color: #0000FF
+
+.green
+    border-color: #00FF00
+
