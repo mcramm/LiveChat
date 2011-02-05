@@ -17,7 +17,7 @@ Chat.prototype.buildState = function() {
 Chat.prototype.addMessage = function(conn, message) {
     var message = {
         user_id: conn.id,
-        message: message,
+        message: this.replaceUrls(message),
         color: this.getMemberColor( conn.id )
     };
 
@@ -46,6 +46,11 @@ Chat.prototype.getMemberColor = function(id) {
 
 Chat.prototype.getState = function(){
     return this.state;
+}
+
+Chat.prototype.replaceUrls = function(message) {
+  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  return message.replace(exp,"<a target='_blank' href='$1'>$1</a>"); 
 }
 
 exports.Chat = Chat;
