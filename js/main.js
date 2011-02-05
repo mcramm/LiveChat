@@ -10,21 +10,19 @@ $(document).ready( function() {
         console.log('got message!', args);
         var data = JSON.parse(args.data);
 
-        if( data.command === 'remove_member' ) {
-            disconnectMember( data.member_id );
-        }
-
-        if (data.command === 'new_message' ) {
-            appendMessage( data.message );
-        }
-
-        if (data.command === 'new_member' ){
-            appendMember( data.member );
-        }
-
-        if (data.command === 'init' ){
-            init( data.state );
-
+        switch( data.command ){
+            case 'remove_member':
+                disconnectMember( data.member_id );
+                break;
+            case 'new_message':
+                appendMessage( data.message );
+                break;
+            case 'new_member':
+                appendMember( data.member );
+                break;
+            case 'init':
+                init( data.state );
+                break;
         }
     }
 
