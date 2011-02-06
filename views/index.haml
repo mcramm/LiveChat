@@ -6,3 +6,6 @@
     %textarea{:id => 'new-message', :rows => 3, :cols => 60}
 #user-data><
     = "{\"username\":\"#{session[:user]['username']}\", \"gravatar_hash\":\"#{session[:user]['gravatar_hash']}\"}"
+
+
+%script{:type => 'text/javascript', :src => "/javascripts/main.js"}
