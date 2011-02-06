@@ -1,9 +1,13 @@
 .chat-area
-    .messages#messages
+    .messages#messages{:style => "max-height: 700px"}
     .members#members
     .clear
 #new-message-holder
-    %textarea{:id => 'new-message', :rows => 3, :cols => 60}
+    %span.click-to-start Click or start typeing
+
+#inactive-message-holder{:style => 'display: none'}
+    %textarea{:id => 'new-message', :rows => 1, :cols => 58}
+
 #user-data><
     = "{\"username\":\"#{session[:user]['username']}\", \"gravatar_hash\":\"#{session[:user]['gravatar_hash']}\"}"
 

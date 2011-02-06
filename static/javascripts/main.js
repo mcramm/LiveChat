@@ -1,4 +1,5 @@
 var ws = null
+var textarea_active = false;
 $(document).ready( function() {
     ws = new WebSocket("ws://localhost:8000");
     ws.onopen = function(evt) {
@@ -6,7 +7,7 @@ $(document).ready( function() {
         ws.send( JSON.stringify( {command: 'new_member', username: user_data.username, gravatar_hash: user_data.gravatar_hash} ) );
     }
     ws.onmessage = function(args) {
-        console.log('got message!', args);
+        var current_scroll_pos = $('#messages').scrollTop();
         var data = JSON.parse(args.data);
 
         switch( data.command ){
@@ -29,37 +30,74 @@ $(document).ready( function() {
     }
 
     $('#new-message').focus( function() {
-        console.log('focused!');
-
-        $('#new-message').keypress( function(e) {
-            if( e.keyCode == 13 ) {
-                var node = $('#new-message');
-
-                postMessage( node.val() );
-                $('#new-message').val('');
-            }
-        });
     });
 
     $('#new-message').blur( function() {
-        console.log('blured!');
-        $('#new-message').unbind( 'keypress' );
+        if( $('#new-message').val() == '' ) {
+            deactivateTextarea();
+        } else{
+            $('#new-message').unbind( 'keypress' );
+        }
+
+        // race condition between keypress events
+        window.setTimeout( waitForKeyPress, 1 );
     });
+
+    $('#new-message-holder').click( function() {
+        activateTextarea();
+    });
+
+    waitForKeyPress();
 });
 
+function waitForKeyPress() {
+    $('body').keypress( function(e) {
+        activateTextarea();
+    });
+}
+
+function activateTextarea() {
+    if( !textarea_active ){
+        $('#new-message-holder').html( $('#new-message') );
+    }
+    textarea_active = true;
+    $('#new-message').focus();
+
+    $('body').unbind( 'keypress' );
+
+    $('#new-message').keypress( function(e) {
+        if( e.keyCode == 13 ) {
+            var node = $('#new-message');
+
+            postMessage( node.val() );
+            deactivateTextarea();
+
+            $('#new-message').blur();
+        }
+    });
+}
+
+function deactivateTextarea() {
+    textarea_active = false;
+    $('#new-message').val('');
+
+    $('#new-message').appendTo( '#inactive-message-holder' );
+    $('#new-message-holder').html( "<span class='click-to-start'>Click or start typeing</span>" );
+
+    $('#new-message').unbind( 'keypress' );
+}
+
 function appendMessage( message ){
-    console.log('new message!!', message);
     $('#messages').append("<div class='message "+ message.color +"'>" + message.message + "</div>");
+    $('#messages').scrollTop(99999);
 }
 
 function appendMember( member ){
-    console.log('new memeber!', member);
     var memberDiv = "<div id="+member.origin_id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />" + member.username + "</div>";
     $('#members').append(memberDiv);
 }
 
 function postMessage( message ){
-    console.log('postMessage called!', message);
     ws.send( JSON.stringify( {command: 'new_message', message: message} ) );
 }
 
@@ -69,23 +107,18 @@ function disconnectMember( id ) {
 }
 
 function reconnectMember( id ) {
-    console.log('reconnecting!!', id);
     $("#" + id).removeClass( 'disconnected' );
     $("#" + id).addClass( 'connected' );
 }
 
 function init( state ){
-    console.log('initilizing!!')
-
     $.each( state.members , function(id, member) {
         if(member) {
-            console.log('    initing member', member);
             appendMember( member );
         }
     });
     $.each( state.messages , function(index, message) {
         if(message) {
-            console.log('    initing message', message);
             appendMessage( message );
         }
     });
