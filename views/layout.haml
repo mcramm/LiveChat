@@ -1,0 +1,18 @@
+!!!
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => 'en', 'xml:lang' => 'en' }
+    %head
+        %title My Bug Journal
+        %meta{'http-equiv'=>"Content-Type", :content=>"text/html; charset=iso-8859-1"}/
+        %meta{'http-equiv'=>"Content-Language", :content=>"en-us"}/
+        %link{:href=>"/stylesheets/screen.css", :media=>"screen", :rel=>"stylesheet", :type=>"text/css"}/
+        %script{:type => 'text/javascript', :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"}
+        %script{:type => 'text/javascript', :src => "/javascripts/lib/Underscore.js"}
+        %script{:type => 'text/javascript', :src => "/javascripts/lib/Backbone.js"}
+        %script{:type => 'text/javascript', :src => "/javascripts/main.js"}
+		
+    %body
+        .container
+            .body
+                =yield

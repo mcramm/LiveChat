@@ -1,0 +1,15 @@
+- if session[:message]
+    .session-message
+        = session[:message]
+%form{:action => '/signup', :method => 'post', :name => 'user'}
+    .form-line
+        %label{:class =>'username'} Username
+        %input{:name => 'user[username]', :type => 'textfield', :id => 'username'}
+    .form-line
+        %label{:class =>'email'} Email
+        %input{:name => 'user[email]', :type => 'textfield', :id => 'email'}
+    .form-line
+        %label{:class =>'password'} Password
+        %input{:name => 'user[password]', :type => 'password', :id => 'password'}
+    .form-line
+        %input{:type => 'submit', :id => 'submit'}

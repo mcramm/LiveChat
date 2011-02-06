@@ -1,0 +1,51 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+
+body { line-height: 1; color: black; background: white; }
+
+ol, ul { list-style: none; }
+
+table { border-collapse: separate; border-spacing: 0; vertical-align: middle; }
+
+caption, th, td { text-align: left; font-weight: normal; vertical-align: middle; }
+
+q, blockquote { quotes: "" ""; }
+q:before, q:after, blockquote:before, blockquote:after { content: ""; }
+
+a img { border: none; }
+
+body { font-size: 1.5em; font-family: Monaco, "Helvetica Neue", Helvetica; color: black; background: white; padding: 20px; }
+
+h1 { font-size: 1.5em; text-align: center; }
+
+a { color: #3339ff; text-decoration: none; }
+
+a:visited { color: #3339ff; text-decoration: none; }
+
+a:hover { color: #666cff; text-decoration: underline; }
+
+h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
+
+.clear { clear: both; }
+
+.messages { font-size: 13px; width: 500px; float: left; }
+
+.members { font-size: 12px; width: 200px; float: left; }
+
+.player, .message { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
+
+#user-data { display: none; }
+
+.gray { border-color: #888888; }
+
+.red { border-color: red; }
+
+.blue { border-color: blue; }
+
+.green { border-color: lime; }
+
+.member-img { margin-right: 5px; }
+
+.form-line label { display: inline-block; width: 130px; margin: 10px 0px; }
+.form-line input { font-size: 15px; }
+
+#new-message { font-size: 14px; }

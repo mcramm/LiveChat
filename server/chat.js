@@ -22,16 +22,32 @@ Chat.prototype.addMessage = function(conn, message) {
     return message;
 }
 
-Chat.prototype.addMember = function(conn, username) {
-    this.state.member_count += 1;
+Chat.prototype.addMember = function(conn, username, gravatar_hash) {
+    var member = this.checkForMember(username);
+    if( !member ) {
+        this.state.member_count += 1;
 
-    var member = {
-        id: conn.id,
-        username: username, 
-        status: 'connected',
-        color: this.colors.shift()
-    };
-    this.state.members[conn.id] = member;
+        member = {
+            origin_id: conn.id,
+            id: conn.id,
+            username: username, 
+            status: 'connected',
+            gravatar_hash: gravatar_hash,
+            is_new: true,
+            color: this.colors.shift()
+        };
+        this.state.members[conn.id] = member;
+    } else {
+        var old_id = member.id;
+        var new_id = conn.id;
+
+        member.status = 'connected';
+        member.id = new_id;
+
+        this.state.members[old_id] = null;
+        this.state.members[new_id] = member;
+    }
+
 
     return member;
 }
@@ -45,8 +61,26 @@ Chat.prototype.getState = function(){
 }
 
 Chat.prototype.replaceUrls = function(message) {
-  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  return message.replace(exp,"<a target='_blank' href='$1'>$1</a>"); 
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return message.replace(exp,"<a target='_blank' href='$1'>$1</a>"); 
+}
+
+Chat.prototype.checkForMember = function(username) {
+    for( var i in this.state.members ) {
+        var member = this.state.members[i];
+        if( member && member.username == username ) {
+            return member;
+        }
+    }
+    return null;
+}
+
+Chat.prototype.oldifyMember = function( id ) {
+    this.state.members[id].is_new = false;
+}
+
+Chat.prototype.getMember = function( id ){
+    return this.state.members[id];
 }
 
 exports.Chat = Chat;

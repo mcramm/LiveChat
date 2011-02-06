@@ -1,0 +1,9 @@
+%form{:action => '/signin', :method => 'post', :name => 'user'}
+    .form-line
+        %label{:class =>'username'} Username
+        %input{:name => 'user[username]', :type => 'textfield', :id => 'username'}
+    .form-line
+        %label{:class =>'password'} Password
+        %input{:name => 'user[password]', :type => 'password', :id => 'password'}
+    .form-line
+        %input{:type => 'submit', :id => 'submit'}

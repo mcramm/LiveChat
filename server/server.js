@@ -20,9 +20,14 @@ server.addListener("connection", function(conn){
                 server.broadcast( JSON.stringify({command: data.command, message: message}) );
             }
             if (data.command === 'new_member') {
-                var member = chat.addMember( conn, data.username );
+                var member = chat.addMember( conn, data.username, data.gravatar_hash);
 
-                server.broadcast( JSON.stringify({command: data.command, member: member}) );
+                if( member.is_new ) {
+                    chat.oldifyMember( conn.id ); 
+                    server.broadcast( JSON.stringify({command: data.command, member: member}) );
+                } else {
+                    server.broadcast( JSON.stringify({command: 'reconnect_member', member_id: member.origin_id}) );
+                }
             }
         } catch(e) {
             console.warn(e + 'dropping command for ' + conn.id + ' command: ' + msg);
@@ -36,7 +41,10 @@ server.addListener("error", function(){
 
 server.addListener("disconnect", function(conn){
     console.log('disconnect');
-    server.broadcast( JSON.stringify( {command: 'remove_member', member_id: conn.id }));
+    member = chat.getMember( conn.id );
+    if(member) {
+        server.broadcast( JSON.stringify( {command: 'remove_member', member_id: member.origin_id }));
+    }
 });
 
 // game cycle
