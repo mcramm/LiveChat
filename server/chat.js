@@ -2,7 +2,7 @@ var Chat = function() {
     //this.members = {};
     //this.messages = [];
     this.state = this.buildState();
-    this.colors = ['gray', 'red', 'blue', 'orange', 'magenta', 'cyan', 'olive', 'brown', 'teal', 'green'];
+    this.colors = ['red', 'blue', 'orange', 'magenta', 'cyan', 'olive', 'brown', 'teal', 'green', 'gray'];
 }
 
 Chat.prototype.buildState = function() {
@@ -11,10 +11,15 @@ Chat.prototype.buildState = function() {
 }
 
 Chat.prototype.addMessage = function(conn, message) {
+    var member = this.getMember( conn.id );
+    var now = new Date();
     var message = {
         user_id: conn.id,
         message: this.replaceUrls(message),
-        color: this.getMemberColor( conn.id )
+        color: member.color,
+        gravatar_hash: member.gravatar_hash,
+        message_time: now.getTime(),
+        username: member.username
     };
 
     this.state.messages.push( message );

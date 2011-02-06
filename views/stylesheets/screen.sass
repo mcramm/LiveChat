@@ -2,7 +2,7 @@
 
 body
     font-size: 1.5em
-    font-family: Monaco, "Helvetica Neue", Helvetica
+    font-family: Helvetica
     color: $font_color
     background: $background_color
     padding: 20px
@@ -31,9 +31,11 @@ h2
 
 .messages
     font-size: 13px
+    min-height: 1px
     width: 500px
     float: left
     overflow-y: scroll
+    padding-right: 20px
 .chat-area
     position: absolute
     bottom: 70px
@@ -44,25 +46,38 @@ h2
     float: left
     margin-left: 10px
 
-.player, .message
-    border-left: 3px solid
+.player
     margin: 5px 0px
     padding-left: 3px
+    .user
+        position: relative
+        bottom: 8px
+        left: 5px
+        font-size: 13px
+        color: #111
+        padding-right: 7px
+
+.message
+    padding: 10px 10px
+    border-top: 1px solid gray
+    .meta
+        position: relative
+        bottom: 8px
+        left: 5px
+        font-size: 10px
+        display: inline-block
+    .user
+        font-size: 13px
+        color: #111
+        padding-right: 7px
+    .date
+        color: #666
+    .message-body
+        padding: 5px 0px
 
 #user-data
     display: none
 
-.gray
-    border-color: #888888
-
-.red
-    border-color: #FF0000
-
-.blue
-    border-color: #0000FF
-
-.green
-    border-color: #00FF00
 .member-img
     margin-right: 5px
 

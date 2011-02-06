@@ -13,7 +13,7 @@ q:before, q:after, blockquote:before, blockquote:after { content: ""; }
 
 a img { border: none; }
 
-body { font-size: 1.5em; font-family: Monaco, "Helvetica Neue", Helvetica; color: black; background: white; padding: 20px; }
+body { font-size: 1.5em; font-family: Helvetica; color: black; background: white; padding: 20px; }
 
 h1 { font-size: 1.5em; text-align: center; }
 
@@ -27,23 +27,22 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 
 .clear { clear: both; }
 
-.messages { font-size: 13px; width: 500px; float: left; overflow-y: scroll; }
+.messages { font-size: 13px; min-height: 1px; width: 500px; float: left; overflow-y: scroll; padding-right: 20px; }
 
 .chat-area { position: absolute; bottom: 70px; }
 
 .members { font-size: 12px; width: 200px; float: left; margin-left: 10px; }
 
-.player, .message { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
+.player { margin: 5px 0px; padding-left: 3px; }
+.player .user { position: relative; bottom: 8px; left: 5px; font-size: 13px; color: #111111; padding-right: 7px; }
+
+.message { padding: 10px 10px; border-top: 1px solid gray; }
+.message .meta { position: relative; bottom: 8px; left: 5px; font-size: 10px; display: inline-block; }
+.message .user { font-size: 13px; color: #111111; padding-right: 7px; }
+.message .date { color: #666666; }
+.message .message-body { padding: 5px 0px; }
 
 #user-data { display: none; }
-
-.gray { border-color: #888888; }
-
-.red { border-color: red; }
-
-.blue { border-color: blue; }
-
-.green { border-color: lime; }
 
 .member-img { margin-right: 5px; }
 
