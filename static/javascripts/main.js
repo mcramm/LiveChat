@@ -92,7 +92,7 @@ function appendMessage( message ){
     var message_node = "<div class='message "+ message.color +"'>";
         message_node += "<div class='message-top'>";
             message_node += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />";
-            message_node += "<span class='message-date'>12-07-2011 9:11:01</span>";
+            message_node += "<span class='message-date'>"+ getDateString(message.message_time) +"</span>";
         message_node += "</div>"; 
     message_node += "<div class='message-body'>" + message.message + "</div>";
     message += "</div>";
@@ -108,6 +108,23 @@ function appendMember( member ){
 function postMessage( message ){
     ws.send( JSON.stringify( {command: 'new_message', message: message} ) );
 }
+
+function getDateString( time ){
+    var the_date = new Date(time);
+    var date_str = padDate( the_date.getMonth() + 1 ) + "-" + padDate( the_date.getDate() ) + "-" + the_date.getFullYear();
+    date_str += " " + padDate( the_date.getHours() ) + ":" + padDate( the_date.getMinutes() ) + ":" + padDate( the_date.getSeconds() );
+
+    return date_str;
+}
+
+function padDate(num) {
+    var padded = "" + num;
+    if( padded.length < 2 ){
+        padded = "0" + padded;
+    }
+    return padded;
+}
+
 
 function disconnectMember( id ) {
     $("#" + id).removeClass( 'connected' );
