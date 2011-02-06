@@ -11,10 +11,12 @@ Chat.prototype.buildState = function() {
 }
 
 Chat.prototype.addMessage = function(conn, message) {
+    var member = this.getMember( conn.id );
     var message = {
         user_id: conn.id,
         message: this.replaceUrls(message),
-        color: this.getMemberColor( conn.id )
+        color: member.color,
+        gravatar_hash: member.gravatar_hash
     };
 
     this.state.messages.push( message );

@@ -35,6 +35,7 @@ h2
     width: 500px
     float: left
     overflow-y: scroll
+    padding-right: 20px
 .chat-area
     position: absolute
     bottom: 70px
@@ -45,28 +46,34 @@ h2
     float: left
     margin-left: 10px
 
-.player, .message
+.player
     border-left: 3px solid
     margin: 5px 0px
     padding-left: 3px
+    .gray
+        border-color: #888888
+
+    .red
+        border-color: #FF0000
+
+    .blue
+        border-color: #0000FF
+
+    .green
+        border-color: #00FF00
+
+    .orange
+        border-color: #D78A35
+
+.message
+    margin: 20px 0px 0px
+    padding: 10px 10px 0px
+    border: 1px solid gray
+    border-radius: 5px
 
 #user-data
     display: none
 
-.gray
-    border-color: #888888
-
-.red
-    border-color: #FF0000
-
-.blue
-    border-color: #0000FF
-
-.green
-    border-color: #00FF00
-
-.orange
-    border-color: #D78A35
 .member-img
     margin-right: 5px
 
@@ -93,3 +100,12 @@ h2
     width: 500px
     padding: 10px 10px
     background-color: #EEE
+.message-date
+    color: #444
+    font-size: 10px
+    display: inline-block
+    position: relative
+    bottom: 8px
+    left: 10px
+.message-body
+    padding: 5px 0px

@@ -27,25 +27,22 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 
 .clear { clear: both; }
 
-.messages { font-size: 13px; min-height: 1px; width: 500px; float: left; overflow-y: scroll; }
+.messages { font-size: 13px; min-height: 1px; width: 500px; float: left; overflow-y: scroll; padding-right: 20px; }
 
 .chat-area { position: absolute; bottom: 70px; }
 
 .members { font-size: 12px; width: 200px; float: left; margin-left: 10px; }
 
-.player, .message { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
+.player { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
+.player .gray { border-color: #888888; }
+.player .red { border-color: red; }
+.player .blue { border-color: blue; }
+.player .green { border-color: lime; }
+.player .orange { border-color: #d78a35; }
+
+.message { margin: 20px 0px 0px; padding: 10px 10px 0px; border: 1px solid gray; border-radius: 5px; }
 
 #user-data { display: none; }
-
-.gray { border-color: #888888; }
-
-.red { border-color: red; }
-
-.blue { border-color: blue; }
-
-.green { border-color: lime; }
-
-.orange { border-color: #d78a35; }
 
 .member-img { margin-right: 5px; }
 
@@ -57,3 +54,7 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 #new-message { font-size: 14px; }
 
 .click-to-start { display: inline-block; color: #888888; font-size: 13px; width: 500px; padding: 10px 10px; background-color: #eeeeee; }
+
+.message-date { color: #444444; font-size: 10px; display: inline-block; position: relative; bottom: 8px; left: 10px; }
+
+.message-body { padding: 5px 0px; }

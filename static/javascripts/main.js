@@ -88,8 +88,16 @@ function deactivateTextarea() {
 }
 
 function appendMessage( message ){
-    $('#messages').append("<div class='message "+ message.color +"'>" + message.message + "</div>");
-    $('#messages').scrollTop(99999);
+
+    var message_node = "<div class='message "+ message.color +"'>";
+        message_node += "<div class='message-top'>";
+            message_node += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />";
+            message_node += "<span class='message-date'>12-07-2011 9:11:01</span>";
+        message_node += "</div>"; 
+    message_node += "<div class='message-body'>" + message.message + "</div>";
+    message += "</div>";
+    $('#messages').append( message_node );
+    $('#messages').scrollTop(9999999);
 }
 
 function appendMember( member ){
