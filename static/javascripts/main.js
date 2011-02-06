@@ -29,9 +29,6 @@ $(document).ready( function() {
         }
     }
 
-    $('#new-message').focus( function() {
-    });
-
     $('#new-message').blur( function() {
         if( $('#new-message').val() == '' ) {
             deactivateTextarea();
@@ -47,9 +44,20 @@ $(document).ready( function() {
         activateTextarea();
     });
 
+    console.log('window', window.innerHeight);
+    resizeWindow();
+    $(window).resize( function() {
+        resizeWindow();
+    });
+
+
     waitForKeyPress();
 });
 
+function resizeWindow() {
+    $('#messages').css('max-height', window.innerHeight - 70 );
+    $('#messages').scrollTop(9999999);
+}
 function waitForKeyPress() {
     $('body').keypress( function(e) {
         activateTextarea();
@@ -92,7 +100,8 @@ function appendMessage( message ){
     var message_node = "<div class='message "+ message.color +"'>";
         message_node += "<div class='message-top'>";
             message_node += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />";
-            message_node += "<span class='message-date'>"+ getDateString(message.message_time) +"</span>";
+            message_node += "<span class='meta user'>"+ message.username +"</span>";
+            message_node += "<span class='meta date'>"+ getDateString(message.message_time) +"</span>";
         message_node += "</div>"; 
     message_node += "<div class='message-body'>" + message.message + "</div>";
     message += "</div>";
@@ -101,7 +110,8 @@ function appendMessage( message ){
 }
 
 function appendMember( member ){
-    var memberDiv = "<div id="+member.origin_id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />" + member.username + "</div>";
+    var memberDiv = "<div id="+member.origin_id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />";
+    memberDiv +="<span class='user'>" + member.username + "</span></div>";
     $('#members').append(memberDiv);
 }
 

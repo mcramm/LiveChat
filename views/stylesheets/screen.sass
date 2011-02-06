@@ -2,7 +2,7 @@
 
 body
     font-size: 1.5em
-    font-family: Monaco, "Helvetica Neue", Helvetica
+    font-family: Helvetica
     color: $font_color
     background: $background_color
     padding: 20px
@@ -47,29 +47,33 @@ h2
     margin-left: 10px
 
 .player
-    border-left: 3px solid
     margin: 5px 0px
     padding-left: 3px
-    .gray
-        border-color: #888888
-
-    .red
-        border-color: #FF0000
-
-    .blue
-        border-color: #0000FF
-
-    .green
-        border-color: #00FF00
-
-    .orange
-        border-color: #D78A35
+    .user
+        position: relative
+        bottom: 8px
+        left: 5px
+        font-size: 13px
+        color: #111
+        padding-right: 7px
 
 .message
-    margin: 20px 0px 0px
-    padding: 10px 10px 0px
-    border: 1px solid gray
-    border-radius: 5px
+    padding: 10px 10px
+    border-top: 1px solid gray
+    .meta
+        position: relative
+        bottom: 8px
+        left: 5px
+        font-size: 10px
+        display: inline-block
+    .user
+        font-size: 13px
+        color: #111
+        padding-right: 7px
+    .date
+        color: #666
+    .message-body
+        padding: 5px 0px
 
 #user-data
     display: none
@@ -100,12 +104,3 @@ h2
     width: 500px
     padding: 10px 10px
     background-color: #EEE
-.message-date
-    color: #444
-    font-size: 10px
-    display: inline-block
-    position: relative
-    bottom: 8px
-    left: 10px
-.message-body
-    padding: 5px 0px

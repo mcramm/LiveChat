@@ -18,7 +18,8 @@ Chat.prototype.addMessage = function(conn, message) {
         message: this.replaceUrls(message),
         color: member.color,
         gravatar_hash: member.gravatar_hash,
-        message_time: now.getTime()
+        message_time: now.getTime(),
+        username: member.username
     };
 
     this.state.messages.push( message );

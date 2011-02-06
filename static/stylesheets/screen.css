@@ -13,7 +13,7 @@ q:before, q:after, blockquote:before, blockquote:after { content: ""; }
 
 a img { border: none; }
 
-body { font-size: 1.5em; font-family: Monaco, "Helvetica Neue", Helvetica; color: black; background: white; padding: 20px; }
+body { font-size: 1.5em; font-family: Helvetica; color: black; background: white; padding: 20px; }
 
 h1 { font-size: 1.5em; text-align: center; }
 
@@ -33,14 +33,14 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 
 .members { font-size: 12px; width: 200px; float: left; margin-left: 10px; }
 
-.player { border-left: 3px solid; margin: 5px 0px; padding-left: 3px; }
-.player .gray { border-color: #888888; }
-.player .red { border-color: red; }
-.player .blue { border-color: blue; }
-.player .green { border-color: lime; }
-.player .orange { border-color: #d78a35; }
+.player { margin: 5px 0px; padding-left: 3px; }
+.player .user { position: relative; bottom: 8px; left: 5px; font-size: 13px; color: #111111; padding-right: 7px; }
 
-.message { margin: 20px 0px 0px; padding: 10px 10px 0px; border: 1px solid gray; border-radius: 5px; }
+.message { padding: 10px 10px; border-top: 1px solid gray; }
+.message .meta { position: relative; bottom: 8px; left: 5px; font-size: 10px; display: inline-block; }
+.message .user { font-size: 13px; color: #111111; padding-right: 7px; }
+.message .date { color: #666666; }
+.message .message-body { padding: 5px 0px; }
 
 #user-data { display: none; }
 
@@ -54,7 +54,3 @@ h2 { text-align: center; font-size: 0.9em; padding-top: 20px; }
 #new-message { font-size: 14px; }
 
 .click-to-start { display: inline-block; color: #888888; font-size: 13px; width: 500px; padding: 10px 10px; background-color: #eeeeee; }
-
-.message-date { color: #444444; font-size: 10px; display: inline-block; position: relative; bottom: 8px; left: 10px; }
-
-.message-body { padding: 5px 0px; }
