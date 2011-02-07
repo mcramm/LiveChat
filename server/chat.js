@@ -14,7 +14,7 @@ Chat.prototype.addMessage = function(conn, message) {
     var member = this.getMember( conn.id );
     var now = new Date();
     var message = {
-        user_id: conn.id,
+        user_id: member.origin_id,
         message: this.replaceUrls(message),
         color: member.color,
         gravatar_hash: member.gravatar_hash,
