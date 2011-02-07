@@ -1,9 +1,10 @@
 var ws = null
 var textarea_active = false;
+var user_data;
 $(document).ready( function() {
     ws = new WebSocket("ws://localhost:8000");
     ws.onopen = function(evt) {
-        var user_data = JSON.parse($('#user-data').text());
+        user_data = JSON.parse($('#user-data').text());
         ws.send( JSON.stringify( {command: 'new_member', username: user_data.username, gravatar_hash: user_data.gravatar_hash} ) );
     }
     ws.onmessage = function(args) {
@@ -122,6 +123,11 @@ function appendMember( member ){
 
 function postMessage( message ){
     ws.send( JSON.stringify( {command: 'new_message', message: message} ) );
+    $.ajax({
+        url: "/message/save",
+        type: 'post',
+        data: {message: message, username: user_data.username}
+    });
 }
 
 function getDateString( time ){

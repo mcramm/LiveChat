@@ -28,6 +28,11 @@ get '/' do
     haml :index
 end
 
+post '/message/save' do
+    message = Message.new(params)
+    message.save
+end
+
 def verify_user
     redirect '/login' if session[:user].nil?
 end
