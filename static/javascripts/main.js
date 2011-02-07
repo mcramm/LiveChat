@@ -1,57 +1,4 @@
-var ws = null
 var textarea_active = false;
-$(document).ready( function() {
-    ws = new WebSocket("ws://localhost:8000");
-    ws.onopen = function(evt) {
-        var user_data = JSON.parse($('#user-data').text());
-        ws.send( JSON.stringify( {command: 'new_member', username: user_data.username, gravatar_hash: user_data.gravatar_hash} ) );
-    }
-    ws.onmessage = function(args) {
-        var current_scroll_pos = $('#messages').scrollTop();
-        var data = JSON.parse(args.data);
-
-        switch( data.command ){
-            case 'remove_member':
-                disconnectMember( data.member_id );
-                break;
-            case 'reconnect_member':
-                reconnectMember( data.member_id );
-                break;
-            case 'new_message':
-                appendMessage( data.message );
-                break;
-            case 'new_member':
-                appendMember( data.member );
-                break;
-            case 'init':
-                init( data.state );
-                break;
-        }
-    }
-
-    $('#new-message').blur( function() {
-        if( $('#new-message').val() == '' ) {
-            deactivateTextarea();
-        } else{
-            $('#new-message').unbind( 'keypress' );
-        }
-
-        // race condition between keypress events
-        window.setTimeout( waitForKeyPress, 1 );
-    });
-
-    $('#new-message-holder').click( function() {
-        activateTextarea();
-    });
-
-    resizeWindow();
-    $(window).resize( function() {
-        resizeWindow();
-    });
-
-
-    waitForKeyPress();
-});
 
 function resizeWindow() {
     $('#messages').css('max-height', window.innerHeight - 70 );
@@ -96,14 +43,15 @@ function deactivateTextarea() {
 
 function appendMessage( message ){
 
-    var message_node = "<div class='message "+ message.color +"'>";
-        message_node += "<div class='message-top'>";
-            message_node += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />";
-            message_node += "<span class='meta user'>"+ message.username +"</span>";
-            message_node += "<span class='meta date'>"+ getDateString(message.message_time) +"</span>";
-        message_node += "</div>"; 
-    message_node += "<div class='message-body'>" + message.message + "</div>";
-    message_node += "</div>";
+    var message_node = "<div class='message "+ message.color +"'>\
+        <div class='message-top'>\
+            <img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />\
+            <span class='meta user'>"+ message.username +"</span>\
+            <span class='meta date'>"+ getDateString(message.message_time) +"</span>\
+        </div>\
+    <div class='message-body'>" + message.message + "</div>\
+    </div>";
+
     $('#messages').append( message_node );
     $('#messages').scrollTop(9999999);
 
@@ -112,17 +60,16 @@ function appendMessage( message ){
 }
 
 function appendMember( member ){
-    var memberDiv = "<div id="+member.origin_id+" class='player " + member.username + " " + member.status + "'>";
-    memberDiv += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />";
-    memberDiv += "<div class='meta'>";
-        memberDiv +="<span class='user'>" + member.username + "</span><span id='last-message'></span>";
-    memberDiv += "</div></div>";
+    var memberDiv = "<div id="+member.origin_id+" class='player " + member.username + " " + member.status + "'>\
+    <img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />\
+    <div class='meta'>\
+        <span class='user'>" + member.username + "</span><span id='last-message'></span>\
+    </div>\
+    </div>";
+
     $('#members').append(memberDiv);
 }
 
-function postMessage( message ){
-    ws.send( JSON.stringify( {command: 'new_message', message: message} ) );
-}
 
 function getDateString( time ){
     var the_date = new Date(time);
