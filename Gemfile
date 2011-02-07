@@ -1,4 +1,5 @@
 source "http://rubygems.org"
+gem "sinatra", '>= 1.0'
 gem "haml", '>= 3.0.2'
 gem "couchrest_model", :git => "git://github.com/couchrest/couchrest_model.git"
 gem "couchrest_extended_document"
