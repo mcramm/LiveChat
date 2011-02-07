@@ -7,6 +7,8 @@ set :app_file, __FILE__
 set :root, File.dirname(__FILE__)
 set :views, "views"
 set :public, "static"
+set :bind, "localhost"
+set :port, "4567"
 
 enable :sessions
 
@@ -39,12 +41,10 @@ def escape(string)
 end
 
 def invalid_user 
-#    session[:message] = "Invalid Username"
     redirect '/login'
 end
 
 def invalid_password 
-#    session[:message] = "Invalid Password"
     redirect '/login'
 end
 

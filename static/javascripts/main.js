@@ -36,7 +36,7 @@ function deactivateTextarea() {
     $('#new-message').val('');
 
     $('#new-message').appendTo( '#inactive-message-holder' );
-    $('#new-message-holder').html( "<span class='click-to-start'>Click or start typeing</span>" );
+    $('#new-message-holder').html( "<span class='click-to-start'>Click or start typing</span>" );
 
     $('#new-message').unbind( 'keypress' );
 }
