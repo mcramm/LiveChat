@@ -28,6 +28,12 @@ get '/' do
     haml :index
 end
 
+get '/messages' do
+    message = Message.all
+
+    p message
+end
+
 post '/message/save' do
     message = Message.new(params)
     message.save
