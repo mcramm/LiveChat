@@ -39,23 +39,31 @@ h2
 .chat-area
     position: absolute
     bottom: 70px
+    min-width: 910px
 
 .members
     font-size: 12px
-    width: 200px
+    width: 380px
     float: left
     margin-left: 10px
 
 .player
-    margin: 5px 0px
+    margin: 0px 0px
     padding-left: 3px
-    .user
-        position: relative
-        bottom: 8px
-        left: 5px
-        font-size: 13px
-        color: #111
-        padding-right: 7px
+    overflow-y: hidden
+    height: 45px
+    .meta
+        max-width: 340px
+        display: inline-block
+        .user
+            font-size: 13px
+            color: #111
+            padding-right: 7px
+            display: block
+        #last-message
+            display: block
+            height: 15px
+            overflow-y: visible
 
 .message
     padding: 10px 10px

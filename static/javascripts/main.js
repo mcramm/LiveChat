@@ -44,7 +44,6 @@ $(document).ready( function() {
         activateTextarea();
     });
 
-    console.log('window', window.innerHeight);
     resizeWindow();
     $(window).resize( function() {
         resizeWindow();
@@ -104,14 +103,20 @@ function appendMessage( message ){
             message_node += "<span class='meta date'>"+ getDateString(message.message_time) +"</span>";
         message_node += "</div>"; 
     message_node += "<div class='message-body'>" + message.message + "</div>";
-    message += "</div>";
+    message_node += "</div>";
     $('#messages').append( message_node );
     $('#messages').scrollTop(9999999);
+
+    $('#members>.' + message.username + '>.meta>#last-message').html(message.message);
+
 }
 
 function appendMember( member ){
-    var memberDiv = "<div id="+member.origin_id+" class='player " + member.color + " " + member.status + "'><img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />";
-    memberDiv +="<span class='user'>" + member.username + "</span></div>";
+    var memberDiv = "<div id="+member.origin_id+" class='player " + member.username + " " + member.status + "'>";
+    memberDiv += "<img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+member.gravatar_hash+"' />";
+    memberDiv += "<div class='meta'>";
+        memberDiv +="<span class='user'>" + member.username + "</span><span id='last-message'></span>";
+    memberDiv += "</div></div>";
     $('#members').append(memberDiv);
 }
 
