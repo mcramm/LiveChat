@@ -13,11 +13,14 @@ Next, clone this repo:
     git clone https://github.com/mcrmm/LiveChat.git live-chat
 
 Load the node-websocket-server submodule:
-    git submodule update --init --recursive 
+    git submodule update --init --recursive
 
 Install bunlder and install any necessary gems:
     gem install bundler
     bundle install
+
+Compile the .sass files to .css by running:
+    compass
 
 You will also need to install CouchDB. If you're on Mac, you can use the awesome (CouchDBX)[http://janl.github.com/couchdbx/]. If you're on/want something else then you're on your own! You should be able to find proper instructions at [http://couchdb.apache.org/](http://couchdb.apache.org/).
 

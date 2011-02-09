@@ -12,7 +12,7 @@ set :port, "4567"
 
 enable :sessions
 
-configure do 
+configure do
     Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.config'))
 end
 
@@ -40,11 +40,11 @@ def escape(string)
     CGI.escape string
 end
 
-def invalid_user 
+def invalid_user
     redirect '/login'
 end
 
-def invalid_password 
+def invalid_password
     redirect '/login'
 end
 
