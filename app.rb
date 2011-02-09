@@ -7,10 +7,12 @@ set :app_file, __FILE__
 set :root, File.dirname(__FILE__)
 set :views, "views"
 set :public, "static"
+set :bind, "localhost"
+set :port, "4567"
 
 enable :sessions
 
-configure do 
+configure do
     Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.config'))
 end
 
@@ -49,13 +51,11 @@ def escape(string)
     CGI.escape string
 end
 
-def invalid_user 
-#    session[:message] = "Invalid Username"
+def invalid_user
     redirect '/login'
 end
 
-def invalid_password 
-#    session[:message] = "Invalid Password"
+def invalid_password
     redirect '/login'
 end
 
