@@ -1,4 +1,4 @@
-var ws = null
+var ws = null;
 $(document).ready( function() {
     ws = new WebSocket("ws://localhost:8000");
 
