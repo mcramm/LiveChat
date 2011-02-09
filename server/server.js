@@ -1,5 +1,6 @@
 var sys = require("util")
   , ws = require('./node-websocket-server/lib/ws/server');
+var http = require("http");
 
 var Chat = require('./chat').Chat
 var chat = new Chat();

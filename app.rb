@@ -37,7 +37,9 @@ get '/messages' do
 end
 
 post '/message/save' do
-    message = Message.new(params)
+    message_data = JSON.parse( params.to_s )
+
+    message = Message.new(message_data)
     message.save
 end
 

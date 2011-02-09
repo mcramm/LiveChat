@@ -49,13 +49,13 @@ function appendMessage( message ){
             <span class='meta user'>"+ message.username +"</span>\
             <span class='meta date'>"+ getDateString(message.message_time) +"</span>\
         </div>\
-    <div class='message-body'>" + message.message + "</div>\
+    <div class='message-body'>" + unescape( message.message ) + "</div>\
     </div>";
 
     $('#messages').append( message_node );
     $('#messages').scrollTop(9999999);
 
-    $('#members>.' + message.username + '>.meta>#last-message').html(message.message);
+    $('#members>.' + message.username + '>.meta>#last-message').html(unescape( message.message ));
 
 }
 

@@ -1,6 +1,7 @@
 var Chat = function() {
     this.state = this.buildState();
     this.colors = ['red', 'blue', 'orange', 'magenta', 'cyan', 'olive', 'brown', 'teal', 'green', 'gray'];
+    this.http = require('http');
 }
 
 Chat.prototype.buildState = function() {
@@ -8,12 +9,14 @@ Chat.prototype.buildState = function() {
     return newState;
 }
 
-Chat.prototype.addMessage = function(conn, message) {
+Chat.prototype.addMessage = function(conn, body) {
     var member = this.getMember( conn.id );
     var now = new Date();
+    body = this.replaceUrls(body);
+    body = escape( body );
     var message = {
         user_id: member.origin_id,
-        message: this.replaceUrls(message),
+        message: body,
         color: member.color,
         gravatar_hash: member.gravatar_hash,
         message_time: now.getTime(),
@@ -21,6 +24,13 @@ Chat.prototype.addMessage = function(conn, message) {
     };
 
     this.state.messages.push( message );
+
+    var client = this.http.createClient(4567, 'localhost');
+    var request = client.request('POST', '/message/save', { 'host': 'localhost'});
+    var data = JSON.stringify( {message: body, username: member.username} );
+
+    request.write(data);
+    request.end();
 
     return message;
 }
@@ -65,7 +75,7 @@ Chat.prototype.getState = function(){
 
 Chat.prototype.replaceUrls = function(message) {
     var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return message.replace(exp,"<a target='_blank' href='$1'>$1</a>"); 
+    return message.replace(exp,"<a target='_blank' href='$1'>$1</a>");
 }
 
 Chat.prototype.checkForMember = function(username) {
