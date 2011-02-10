@@ -12,7 +12,7 @@ module UserRoutes
 
         invalid_user if user.nil?
         invalid_password if user.password != password
-        
+
         session[:user] = user
 
         redirect '/'

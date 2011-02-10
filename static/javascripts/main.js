@@ -42,8 +42,7 @@ function deactivateTextarea() {
 }
 
 function appendMessage( message ){
-
-    var message_node = "<div class='message "+ message.color +"'>\
+    var message_node = "<div class='message'>\
         <div class='message-top'>\
             <img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />\
             <span class='meta user'>"+ message.username +"</span>\
@@ -56,7 +55,6 @@ function appendMessage( message ){
     $('#messages').scrollTop(9999999);
 
     $('#members>.' + message.username + '>.meta>#last-message').html(unescape( message.message ));
-
 }
 
 function appendMember( member ){

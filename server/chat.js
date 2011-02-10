@@ -1,7 +1,12 @@
+state_messages = [];
 var Chat = function() {
     this.state = this.buildState();
-    this.colors = ['red', 'blue', 'orange', 'magenta', 'cyan', 'olive', 'brown', 'teal', 'green', 'gray'];
+
     this.http = require('http');
+    this.host = 'localhost';
+    this.port = 4567;
+
+    this.loadMessages();
 }
 
 Chat.prototype.buildState = function() {
@@ -17,7 +22,6 @@ Chat.prototype.addMessage = function(conn, body) {
     var message = {
         user_id: member.origin_id,
         message: body,
-        color: member.color,
         gravatar_hash: member.gravatar_hash,
         message_time: now.getTime(),
         username: member.username
@@ -25,12 +29,7 @@ Chat.prototype.addMessage = function(conn, body) {
 
     this.state.messages.push( message );
 
-    var client = this.http.createClient(4567, 'localhost');
-    var request = client.request('POST', '/message/save', { 'host': 'localhost'});
-    var data = JSON.stringify( {message: body, username: member.username} );
-
-    request.write(data);
-    request.end();
+    this.saveMessage( message );
 
     return message;
 }
@@ -43,11 +42,10 @@ Chat.prototype.addMember = function(conn, username, gravatar_hash) {
         member = {
             origin_id: conn.id,
             id: conn.id,
-            username: username, 
+            username: username,
             status: 'connected',
             gravatar_hash: gravatar_hash,
-            is_new: true,
-            color: this.colors.shift()
+            is_new: true
         };
         this.state.members[conn.id] = member;
     } else {
@@ -61,12 +59,7 @@ Chat.prototype.addMember = function(conn, username, gravatar_hash) {
         this.state.members[new_id] = member;
     }
 
-
     return member;
-}
-
-Chat.prototype.getMemberColor = function(id) {
-    return this.state.members[id].color;
 }
 
 Chat.prototype.getState = function(){
@@ -94,6 +87,41 @@ Chat.prototype.oldifyMember = function( id ) {
 
 Chat.prototype.getMember = function( id ){
     return this.state.members[id];
+}
+
+Chat.prototype.saveMessage = function( message ){
+    var client = this.http.createClient(this.port, this.host);
+    var request = client.request('POST', '/message/save', { 'host': 'localhost'});
+
+    var data = JSON.stringify( message );
+
+    request.write(data);
+    request.end();
+}
+
+Chat.prototype.loadMessages = function() {
+    var client = this.http.createClient(this.port, this.host);
+    var request = client.request('GET', '/messages', { 'host': 'localhost'});
+
+    request.end();
+    this.state = this.buildState();
+
+    request.on('response', function(response) {
+        response.on('data', function(chunk) {
+            var messages = JSON.parse( "" + chunk );
+            for( var i in messages ) {
+                var message = messages[i];
+                state_messages.push({
+                    user_id: message.user_id,
+                    message: message.message,
+                    gravatar_hash: message.gravatar_hash,
+                    message_time: message.message_time,
+                    username: message.username
+                });
+            }
+        });
+    });
+    this.state.messages = state_messages;
 }
 
 exports.Chat = Chat;
