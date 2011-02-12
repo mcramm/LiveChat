@@ -101,9 +101,13 @@ function init( state ){
             appendMember( member );
         }
     });
+    state.messages = state.messages.sort( sortMessages );
     $.each( state.messages , function(index, message) {
         if(message) {
             appendMessage( message );
         }
     });
+}
+function sortMessages(a, b) {
+    return a.message_time - b.message_time;
 }

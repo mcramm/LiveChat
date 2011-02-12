@@ -34,22 +34,25 @@ get '/messages' do
     messages = Message.all
     return "[]" if messages.size <= 0
 
-    json = "["
+    return_messages = "["
 
     messages.reverse.each do |message|
-        json = "{\"user_id\": #{message.user_id},\"message\": \"#{message.message}\",\"gravatar_hash\": \"#{message.gravatar_hash}\",\"username\": \"#{message.username}\",\"message_time\": #{message.message_time}},"
-        return_messages << json
+        return_messages << message.json_string << ","
     end
     return_messages.chop!
     return_messages << "]"
+
+    puts "RETURN MESSAGES"
+    puts
+    puts return_messages
 
     return return_messages
 end
 
 post '/message/save' do
-    message_data = JSON.parse( params.to_s )
+    json_string = params.keys.first.split("\n")[1].strip.dump
 
-    message = Message.new(message_data)
+    message = Message.new({:json_string => json_string})
     message.save
 end
 

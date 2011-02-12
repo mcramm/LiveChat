@@ -93,7 +93,9 @@ Chat.prototype.saveMessage = function( message ){
     var client = this.http.createClient(this.port, this.host);
     var request = client.request('POST', '/message/save', { 'host': 'localhost'});
 
+    console.log('saving message!!');
     var data = JSON.stringify( message );
+    console.log(data);
 
     request.write(data);
     request.end();
@@ -108,9 +110,10 @@ Chat.prototype.loadMessages = function() {
 
     request.on('response', function(response) {
         response.on('data', function(chunk) {
-            var messages = JSON.parse( "" + chunk );
+            var messages = unescape( "" + chunk );
+            messages = JSON.parse( messages );
             for( var i in messages ) {
-                var message = messages[i];
+                var message = JSON.parse( messages[i] );
                 state_messages.push({
                     user_id: message.user_id,
                     message: message.message,
@@ -121,7 +124,12 @@ Chat.prototype.loadMessages = function() {
             }
         });
     });
-    this.state.messages = state_messages;
+    this.state.messages = state_messages.sort( this.sortMessages );
 }
+
+Chat.prototype.sortMessages = function(a, b) {
+    return a.message_time - b.message_time;
+}
+
 
 exports.Chat = Chat;

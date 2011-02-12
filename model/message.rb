@@ -3,11 +3,7 @@ class Message < CouchRest::ExtendedDocument
 
     use_database CouchRest.database!("http://127.0.0.1:5984/" << ENV['DB_NAME'])
 
-    property :user_id
-    property :message
-    property :gravatar_hash
-    property :message_time
-    property :username
+    property :json_string
 
     timestamps!
 
