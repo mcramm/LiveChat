@@ -42,21 +42,19 @@ function deactivateTextarea() {
 }
 
 function appendMessage( message ){
-
-    var message_node = "<div class='message "+ message.color +"'>\
+    var message_node = "<div class='message'>\
         <div class='message-top'>\
             <img width='25px' class='member-img' src='http://www.gravatar.com/avatar/"+message.gravatar_hash+"' />\
             <span class='meta user'>"+ message.username +"</span>\
             <span class='meta date'>"+ getDateString(message.message_time) +"</span>\
         </div>\
-    <div class='message-body'>" + message.message + "</div>\
+    <div class='message-body'>" + unescape( message.message ) + "</div>\
     </div>";
 
     $('#messages').append( message_node );
     $('#messages').scrollTop(9999999);
 
-    $('#members>.' + message.username + '>.meta>#last-message').html(message.message);
-
+    $('#members>.' + message.username + '>.meta>#last-message').html(unescape( message.message ));
 }
 
 function appendMember( member ){
@@ -69,7 +67,6 @@ function appendMember( member ){
 
     $('#members').append(memberDiv);
 }
-
 
 function getDateString( time ){
     var the_date = new Date(time);
@@ -104,9 +101,13 @@ function init( state ){
             appendMember( member );
         }
     });
+    state.messages = state.messages.sort( sortMessages );
     $.each( state.messages , function(index, message) {
         if(message) {
             appendMessage( message );
         }
     });
+}
+function sortMessages(a, b) {
+    return a.message_time - b.message_time;
 }

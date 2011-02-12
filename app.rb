@@ -30,6 +30,32 @@ get '/' do
     haml :index
 end
 
+get '/messages' do
+    messages = Message.all
+    return "[]" if messages.size <= 0
+
+    return_messages = "["
+
+    messages.reverse.each do |message|
+        return_messages << message.json_string << ","
+    end
+    return_messages.chop!
+    return_messages << "]"
+
+    puts "RETURN MESSAGES"
+    puts
+    puts return_messages
+
+    return return_messages
+end
+
+post '/message/save' do
+    json_string = params.keys.first.split("\n")[1].strip.dump
+
+    message = Message.new({:json_string => json_string})
+    message.save
+end
+
 def verify_user
     redirect '/login' if session[:user].nil?
 end

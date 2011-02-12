@@ -1,13 +1,12 @@
 var sys = require("util")
   , ws = require('./node-websocket-server/lib/ws/server');
+var http = require("http");
 
 var Chat = require('./chat').Chat
 var chat = new Chat();
 
 var server = ws.createServer({debug: false});
 
-
-// Handle WebSocket Requests
 server.addListener("connection", function(conn){
     conn.send( JSON.stringify({command: 'init', state: chat.getState()}));
 
@@ -47,8 +46,6 @@ server.addListener("disconnect", function(conn){
     }
 });
 
-// game cycle
 server.listen(8000, function() {
     console.log("Server Started");
 });
-
