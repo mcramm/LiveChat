@@ -1,8 +1,7 @@
-var sys = require("util")
-  , ws = require('./node-websocket-server/lib/ws/server');
-var http = require("http");
+var sys = require("util"),
+    ws = require('./node-websocket-server/lib/ws/server');
 
-var Chat = require('./chat').Chat
+var Chat = require('./chat').Chat;
 var chat = new Chat();
 
 var server = ws.createServer({debug: false});

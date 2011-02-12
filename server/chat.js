@@ -17,8 +17,8 @@ Chat.prototype.buildState = function() {
 Chat.prototype.addMessage = function(conn, body) {
     var member = this.getMember( conn.id );
     var now = new Date();
-    body = this.replaceUrls(body);
-    body = escape( body );
+    body = this.replaceUrlsAndEscape(body);
+    //body = escape( body );
     var message = {
         user_id: member.origin_id,
         message: body,
@@ -66,6 +66,11 @@ Chat.prototype.getState = function(){
     return this.state;
 }
 
+Chat.prototype.replaceUrlsAndEscape = function(message) {
+    message = this.replaceUrls( message );
+    return escape(message);
+}
+
 Chat.prototype.replaceUrls = function(message) {
     var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return message.replace(exp,"<a target='_blank' href='$1'>$1</a>");
@@ -73,9 +78,11 @@ Chat.prototype.replaceUrls = function(message) {
 
 Chat.prototype.checkForMember = function(username) {
     for( var i in this.state.members ) {
-        var member = this.state.members[i];
-        if( member && member.username == username ) {
-            return member;
+        if( this.state.members[i] !== null ){
+            var member = this.state.members[i];
+            if( member && member.username == username ) {
+                return member;
+            }
         }
     }
     return null;
@@ -113,14 +120,16 @@ Chat.prototype.loadMessages = function() {
             var messages = unescape( "" + chunk );
             messages = JSON.parse( messages );
             for( var i in messages ) {
-                var message = JSON.parse( messages[i] );
-                state_messages.push({
-                    user_id: message.user_id,
-                    message: message.message,
-                    gravatar_hash: message.gravatar_hash,
-                    message_time: message.message_time,
-                    username: message.username
-                });
+                if( messages[i] !== null ) {
+                    var message = JSON.parse( messages[i] );
+                    state_messages.push({
+                        user_id: message.user_id,
+                        message: message.message,
+                        gravatar_hash: message.gravatar_hash,
+                        message_time: message.message_time,
+                        username: message.username
+                    });
+                }
             }
         });
     });
