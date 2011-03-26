@@ -1,7 +1,7 @@
 LiveChat
 ==========
 
-Another group chat with [Node.js](http://nodejs.org/). This one runs on top of a [Sinatra](http://www.sinatrarb.com/) app that handles users/registration, etc, through (CouchDB)[http://couchdb.apache.org/].
+Another group chat with [Node.js](http://nodejs.org/). This one runs on top of a [Sinatra](http://www.sinatrarb.com/) app that handles users/registration, etc, through [CouchDB](http://couchdb.apache.org/).
 
 
 Installing
