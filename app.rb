@@ -42,15 +42,14 @@ get '/messages' do
     return_messages.chop!
     return_messages << "]"
 
-    puts "RETURN MESSAGES"
-    puts
-    puts return_messages
-
     return return_messages
 end
 
 post '/message/save' do
-    json_string = params.keys.first.split("\n")[1].strip.dump
+    data = request.body.read
+
+    result = data.scan(/\{(.*)\}/)
+    json_string = "{#{result.first.first}}"
 
     message = Message.new({:json_string => json_string})
     message.save
